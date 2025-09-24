@@ -5,13 +5,20 @@ export default function LoginScreen() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [response, setResponse] = useState(Object);
 
     const handleLogin = () => {
         if (!username || !email || !password) {
             Alert.alert("Error", "Por favor rellena todos los campos");
             return;
         }
-        Alert.alert("Login correcto", `Bienvenido ${username} (${email})`);
+
+        fetch("http://localhost:8082/web/register", {method: "POST", body: JSON.stringify({ username, email, password })})
+        .then(response => response.json())
+        .then(data => setResponse(data))
+            .catch((error) => {console.error("Error:", error)
+            setResponse(error)});
+        // Alert.alert("Login correcto", `Bienvenido ${username} (${email})`);
     };
 
     return (
@@ -44,6 +51,18 @@ export default function LoginScreen() {
             <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Iniciar sesión</Text>
             </TouchableOpacity>
+
+            {/* Mostrar la respuesta si existe */}
+            {response && (
+                <View style={{ marginTop: 20, width: "100%" }}>
+                    <Text style={{ fontSize: 16, fontWeight: "bold" }}>Respuesta del servidor:</Text>
+                    <Text style={{ fontSize: 14, marginTop: 5 }}>
+                        {typeof response === "object"
+                            ? JSON.stringify(response, null, 2)
+                            : String(response)}
+                    </Text>
+                </View>
+            )}
         </View>
     );
 }
