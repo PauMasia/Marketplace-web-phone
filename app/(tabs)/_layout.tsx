@@ -3,17 +3,17 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "reac
 
 export default function LoginScreen() {
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
+    const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [response, setResponse] = useState(Object);
 
     const handleLogin = () => {
-        if (!username || !email || !password) {
+        if (!username || !mail || !password) {
             Alert.alert("Error", "Por favor rellena todos los campos");
             return;
         }
 
-        fetch("http://localhost:8082/web/register", {method: "POST", body: JSON.stringify({ username, email, password })})
+        fetch("http://localhost:5443/web/register", {method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: username, mail: mail, password: password })})
         .then(response => response.json())
         .then(data => setResponse(data))
             .catch((error) => {console.error("Error:", error)
@@ -36,8 +36,8 @@ export default function LoginScreen() {
                 style={styles.input}
                 placeholder="Email"
                 keyboardType="email-address"
-                value={email}
-                onChangeText={setEmail}
+                value={mail}
+                onChangeText={setMail}
             />
 
             <TextInput
