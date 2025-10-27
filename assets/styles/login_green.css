@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #F0FDF4;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #00C853;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 100%;
+    background-color: #A8E6CF;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #8BC34A;
+}
+
+.button {
+    background-color: #00C853;
+    padding: 15px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.toggleText {
+    color: #00C853;
+    margin-top: 15px;
+    cursor: pointer;
+}

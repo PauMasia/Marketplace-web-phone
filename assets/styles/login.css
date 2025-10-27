@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 100%;
+    background-color: #fff;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.button {
+    background-color: #6200ee;
+    padding: 15px;
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+}
+
+.toggleText {
+    color: #6200ee;
+    margin-top: 15px;
+    cursor: pointer;
+}
