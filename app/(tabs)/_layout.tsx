@@ -38,9 +38,9 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
         <View style={styles.container}>
             <Text style={styles.title}>{isLogin ? "Iniciar sesión" : "Registrarse"}</Text>
 
-            <TextInput style={styles.input} placeholder="Usuario" value={username} onChangeText={setUsername} />
+            { !isLogin ? <TextInput style={styles.input} placeholder="Usuario" value={username} onChangeText={setUsername} />: ""}
             <TextInput style={styles.input} placeholder="Email" value={mail} onChangeText={setMail} />
-            {isLogin ? <TextInput style={styles.input} placeholder="Contraseña" value={password} secureTextEntry onChangeText={setPassword} /> : ""}
+            <TextInput style={styles.input} placeholder="Contraseña" value={password} secureTextEntry onChangeText={setPassword} />
 
             <TouchableOpacity style={styles.button} onPress={handleAuth}>
                 <Text style={styles.buttonText}>{isLogin ? "Entrar" : "Crear cuenta"}</Text>
