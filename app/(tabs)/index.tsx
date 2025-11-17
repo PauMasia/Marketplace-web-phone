@@ -1,30 +1,20 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-
-import { Link } from 'expo-router';
+import React from "react";
+import { View, Text, Button } from "react-native";
+import { useRouter } from "expo-router";
+import { logout } from "../utils/auth";
 
 export default function HomeScreen() {
-  return (
-      <h1> Holiwi UWU</h1>
-  );
-}
+    const router = useRouter();
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+    const handleLogout = async () => {
+        await logout();
+        router.replace("/login");
+    };
+
+    return (
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <Text>Página de la tienda</Text>
+            <Button title="Cerrar sesión" onPress={handleLogout} />
+        </View>
+    );
+}
