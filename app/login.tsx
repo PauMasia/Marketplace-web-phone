@@ -1,18 +1,39 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import { useRouter } from "expo-router";
+import {router, useRouter} from "expo-router";
 import { login } from "./utils/auth";
 import {Image} from "expo-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen() {
+    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [cookie, setCookie] = useState("");
     const router = useRouter();
     const asyncStorage = AsyncStorage;
-    asyncStorage.getItem("partner_id",)
+    // asyncStorage.getItem("partner_id").then(r => null)
 
+    // useEffect(() => {
+    //     requestAnimationFrame(() => {
+    //         router.replace("/shop");
+    //     });
+    // }, []);
+
+    useEffect(() => {
+        const loadPartner = async () => {
+            try {
+                const partnerId = await asyncStorage.getItem("partner_id");
+                console.log("partner_id:", partnerId);
+                // aquí haces lo que quieras con eso
+            } catch (e) {
+                console.error("Error leyendo partner_id", e);
+            }
+        };
+
+        loadPartner();
+    }, []);
+    console.log(`${apiUrl}/web/login`);
     const handleLogin = async () => {
 
         if (!mail || !password) {
@@ -20,7 +41,7 @@ export default function LoginScreen() {
         }
 
         try {
-            const res = await fetch("http://localhost:5443/web/login", {
+            const res = await fetch(`${apiUrl}/web/login`, {
                 method: "POST",
                 credentials:"include",
                 headers: { "Content-Type": "application/json" },

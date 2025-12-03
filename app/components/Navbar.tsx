@@ -1,11 +1,50 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 import {Image} from "expo-image";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Navbar() {
     const router = useRouter();
-    const user = JSON.parse(localStorage.getItem("partner_id") || "null");
+    const asyncStorage = AsyncStorage;
+    let user: JSON;
+    // asyncStorage.getItem("partner_id").then(r => null)
+
+    // asyncStorage.getItem("partner_id").then(r => null)
+
+    // asyncStorage.getItem("partner_id").then(r => null)
+
+
+    useEffect(() => {
+        const loadPartner = async () => {
+            try {
+                const partnerId = await asyncStorage.getItem("partner_id");
+                console.log("partner_id:", partnerId);
+                if (partnerId != null) {
+                    user = JSON.parse(partnerId)
+                }
+                // aquí haces lo que quieras con eso
+            } catch (e) {
+                console.error("Error leyendo partner_id", e);
+            }
+        };
+
+        loadPartner();
+    }, []);
+
+    useEffect(() => {
+        const loadPartner = async () => {
+            try {
+                const partnerId = await asyncStorage.getItem("partner_id");
+                console.log("partner_id:", partnerId);
+                // aquí haces lo que quieras con eso
+            } catch (e) {
+                console.error("Error leyendo partner_id", e);
+            }
+        };
+
+        loadPartner();
+    }, []);
 
 
     const logout = () => {

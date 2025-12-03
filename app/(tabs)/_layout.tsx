@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import {useRouter} from "expo-router";
+import {router, useRouter} from "expo-router";
 import {Button} from "react-native";
 import Navbar from "@/app/components/Navbar";
 // import "../../assets/styles/login.css";
@@ -10,8 +10,7 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
     const [username, setUsername] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
-    const router = useRouter();
-
+    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
     const handleAuth = async () => {
         if (!username || !mail || !password) {
             return Alert.alert("Error", "Rellena todos los campos");
@@ -19,13 +18,16 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
 
         const endpoint = isLogin ? "login" : "register";
 
+        console.log(`${apiUrl}/${endpoint}`,"aaa");
         try {
-            const res = await fetch(`http://localhost:5443/web/${endpoint}`, {
+            console.log(username, mail, password)
+
+            const res = await fetch(`${apiUrl}/${endpoint}`, {
                 method: "POST", // Revisar en casa con la bd, y exportar bd
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, mail, password }),
             });
-
+            console.log(username, mail, password)
             const data = await res.json();
 
             if (res.ok) {
@@ -37,6 +39,8 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
             Alert.alert("Error", "No se pudo conectar al servidor");
         }
     };
+    // useEffect(() => {router.navigate("/shop")})
+
 
     return (
         <View style={styles.container}>

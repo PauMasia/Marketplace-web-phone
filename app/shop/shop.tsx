@@ -5,12 +5,37 @@ import "../../assets/styles/products_css.css";
 import {router} from "expo-router";
 import {Image} from "expo-image";
 import Navbar from "@/app/components/Navbar";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ProductList() {
     const [products, setProducts] = useState<Product[]>([]);
+    const asyncStorage = AsyncStorage;
+    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
+    // asyncStorage.getItem("partner_id").then(r => null)
+    // console.log(apiUrl,"Url");
+
 
     useEffect(() => {
-        fetch("http://localhost:5443/shop")
+        const loadPartner = async () => {
+            try {
+                const partnerId = await asyncStorage.getItem("partner_id");
+                console.log("partner_id:", partnerId);
+                // aquí haces lo que quieras con eso
+                // apiUrl =
+
+                console.log(apiUrl,"Url");
+
+            } catch (e) {
+                console.error("Error leyendo partner_id", e);
+            }
+        };
+
+        loadPartner();
+    }, []);
+
+
+    useEffect(() => {
+        fetch(`${apiUrl}/shop`)
             .then((res) => res.json())
             .then((data) => setProducts(data.content)); // de momento no tendremos en cuenta el paginate
     }, []);
@@ -31,13 +56,13 @@ export default function ProductList() {
                        style={{width: 60, height: 60}}/>}
             <Image source={{}}></Image>
             <Text
-                // style={styles.productName}
+                style={styles.productName}
             >{item.name}</Text>
             <Text
-                // style={styles.productPrice}
+                style={styles.productPrice}
             >{item.price} €</Text>
             <Text
-                // style={styles.productCategory}
+                style={styles.productCategory}
             >{item.category}</Text>
         </TouchableOpacity>
     );
