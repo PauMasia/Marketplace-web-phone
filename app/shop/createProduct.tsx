@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Product } from "../types/product";
+import { StyleSheet} from "react-native";
 
 export default function CreateProduct() {
     const [product, setProduct] = useState<Product>({
+        id:0,
         name: "",
         price: 0,
         discount: 0,
         category: "",
         is_published: false,
+        // url:"";
     });
 
     const updateField = <K extends keyof Product>(key: K, value: Product[K]) => {
@@ -74,3 +77,71 @@ export default function CreateProduct() {
         </div>
     );
 }
+
+const styles = StyleSheet.create({
+ page: {
+     flex: 1,
+     backgroundColor: "#f3f0ff",
+     paddingTop: 50,
+     paddingHorizontal: 16,
+ },
+ header: {
+     marginBottom: 16,
+ },
+ title: {
+     fontSize: 24,
+     fontWeight: "700",
+     marginBottom: 12,
+ },
+ authButtons: {
+     flexDirection: "row",
+     gap: 8,
+ },
+ button: {
+     paddingHorizontal: 14,
+     paddingVertical: 8,
+     borderRadius: 6,
+     backgroundColor: "#6200ee",
+ },
+ buttonText: {
+     color: "#ffffff",
+     fontWeight: "600",
+ },
+ buttonOutline: {
+     paddingHorizontal: 14,
+     paddingVertical: 8,
+     borderRadius: 6,
+     backgroundColor: "#ffffff",
+     borderWidth: 1,
+     borderColor: "#6200ee",
+ },
+ buttonOutlineText: {
+     color: "#6200ee",
+     fontWeight: "600",
+ },
+ textMuted: {
+     color: "#666666",
+     fontSize: 13,
+ },
+ item: {
+     flexDirection: "row",
+     justifyContent: "space-between",
+     alignItems: "center",
+     paddingVertical: 8,
+     borderBottomWidth: 1,
+     borderBottomColor: "#e0e0e0",
+ },
+ itemName: {
+     fontSize: 15,
+     fontWeight: "600",
+ },
+ itemCategory: {
+     fontSize: 13,
+     color: "#777777",
+ },
+ itemPrice: {
+     fontSize: 15,
+     fontWeight: "700",
+     color: "#6200ee",
+ },
+});

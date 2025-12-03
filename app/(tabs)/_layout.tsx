@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {useRouter} from "expo-router";
+import {Button} from "react-native";
+import Navbar from "@/app/components/Navbar";
 // import "../../assets/styles/login.css";
 
 export default function AuthScreen() { // Tal vez añadir el contexto?
@@ -7,6 +10,7 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
     const [username, setUsername] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
+    const router = useRouter();
 
     const handleAuth = async () => {
         if (!username || !mail || !password) {
@@ -36,21 +40,8 @@ export default function AuthScreen() { // Tal vez añadir el contexto?
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{isLogin ? "Iniciar sesión" : "Registrarse"}</Text>
-
-            { !isLogin ? <TextInput style={styles.input} placeholder="Usuario" value={username} onChangeText={setUsername} />: ""}
-            <TextInput style={styles.input} placeholder="Email" value={mail} onChangeText={setMail} />
-            <TextInput style={styles.input} placeholder="Contraseña" value={password} secureTextEntry onChangeText={setPassword} />
-
-            <TouchableOpacity style={styles.button} onPress={handleAuth}>
-                <Text style={styles.buttonText}>{isLogin ? "Entrar" : "Crear cuenta"}</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
-                <Text style={styles.toggleText}>
-                    {isLogin ? "¿No tienes cuenta? Regístrate" : "¿Ya tienes cuenta? Inicia sesión"}
-                </Text>
-            </TouchableOpacity>
+                <Navbar>
+                </Navbar>
         </View>
     );
 }
