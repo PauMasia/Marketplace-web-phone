@@ -1,5 +1,5 @@
-export interface User {
-    id?: number;
+export interface ResPartner {
+    id?: string;
     username: string;
     mail: string;
     password: string;

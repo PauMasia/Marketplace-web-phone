@@ -12,13 +12,14 @@ export default function CreateProduct() {
         is_published: false,
         // url:"";
     });
+    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
 
     const updateField = <K extends keyof Product>(key: K, value: Product[K]) => {
         setProduct({ ...product, [key]: value });
     };
 
     const handleCreate = async () => {
-        const res = await fetch("http://localhost:5443/web/product", {
+        const res = await fetch(`${apiUrl}/web/product`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(product),

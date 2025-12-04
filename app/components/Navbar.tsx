@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, {useEffect, useState} from "react";
+import {View, Text, TouchableOpacity, StyleSheet, Platform} from "react-native";
 import { useRouter } from "expo-router";
 import {Image} from "expo-image";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -7,21 +7,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function Navbar() {
     const router = useRouter();
     const asyncStorage = AsyncStorage;
-    let user: JSON;
+    const [user, setUser] = useState(null);
     // asyncStorage.getItem("partner_id").then(r => null)
-
-    // asyncStorage.getItem("partner_id").then(r => null)
-
-    // asyncStorage.getItem("partner_id").then(r => null)
-
-
     useEffect(() => {
         const loadPartner = async () => {
             try {
                 const partnerId = await asyncStorage.getItem("partner_id");
                 console.log("partner_id:", partnerId);
                 if (partnerId != null) {
-                    user = JSON.parse(partnerId)
+                    setUser(JSON.parse(partnerId))
                 }
                 // aquí haces lo que quieras con eso
             } catch (e) {
@@ -48,12 +42,14 @@ export default function Navbar() {
 
 
     const logout = () => {
-        localStorage.removeItem("partner_id");
+        asyncStorage.removeItem("partner_id");
+        setUser(null);
         router.push("/login");
     };
 
     return (
         <View style={styles.navbar}>
+            {/*{( not_web  && <View style={{marginTop:20;}}</View>)}*/}
             <View style={styles.left}>
                 <TouchableOpacity onPress={() => router.push("/shop")}>
                     <Image source={require("../../assets/images/logo.png")}
@@ -98,12 +94,14 @@ export default function Navbar() {
         </View>
     );
 }
-
+const navbar_top_margin = Platform.OS === "web" ? 0 : 30;
+console.log(navbar_top_margin,"Margen");
 const styles = StyleSheet.create({
     navbar: {
         height: 60,
         // backgroundColor: "#2d024e",
         backgroundColor:"#6d3783",
+        marginTop: navbar_top_margin,
         paddingHorizontal: 12,
         flexDirection: "row",
         justifyContent: "space-between",

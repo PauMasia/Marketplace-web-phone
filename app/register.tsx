@@ -8,6 +8,8 @@ export default function RegisterScreen() {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const router = useRouter();
+    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
+
 
     const handleRegister = async () => {
         if (!username || !mail || !password) {
@@ -15,7 +17,7 @@ export default function RegisterScreen() {
         }
 
         try {
-            const res = await fetch("http://localhost:5443/web/register", {
+            const res = await fetch(`${apiUrl}/web/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, mail, password }),

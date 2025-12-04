@@ -54,7 +54,6 @@ export default function ProductList() {
             // ||
                 <Image source={require("../../assets/images/no_image_product.png")}
                        style={{width: 60, height: 60}}/>}
-            <Image source={{}}></Image>
             <Text
                 style={styles.productName}
             >{item.name}</Text>
@@ -78,10 +77,6 @@ export default function ProductList() {
                 <Text
                     style={styles.title}
                 >Productos</Text>
-                <TouchableOpacity>
-                    <Text style={styles.btn}
-                    >Añadir producto</Text>
-                </TouchableOpacity>
             </View>
 
             <FlatList data={products} renderItem={cardList}></FlatList>

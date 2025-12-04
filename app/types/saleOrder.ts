@@ -1,11 +1,11 @@
 import {SaleOrderLine} from "@/app/types/saleOrderLine";
 
-export interface Order {
+export interface SaleOrder {
     id?: number;
     name: string;
-    partnerName: string;
-    status: string;
-    total: number;
+    partner_id: string;
+    state: string;
+    amount_total: number;
     // faltaran las lineas ver como plantearlo
     lines: SaleOrderLine[];
 }

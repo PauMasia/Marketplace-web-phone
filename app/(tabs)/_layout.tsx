@@ -5,47 +5,17 @@ import {Button} from "react-native";
 import Navbar from "@/app/components/Navbar";
 // import "../../assets/styles/login.css";
 
-export default function AuthScreen() { // Tal vez añadir el contexto?
-    const [isLogin, setIsLogin] = useState(true);
-    const [username, setUsername] = useState("");
-    const [mail, setMail] = useState("");
-    const [password, setPassword] = useState("");
-    let apiUrl=process.env.EXPO_PUBLIC_LOCAL_PC_IP ?? '';
-    const handleAuth = async () => {
-        if (!username || !mail || !password) {
-            return Alert.alert("Error", "Rellena todos los campos");
-        }
-
-        const endpoint = isLogin ? "login" : "register";
-
-        console.log(`${apiUrl}/${endpoint}`,"aaa");
-        try {
-            console.log(username, mail, password)
-
-            const res = await fetch(`${apiUrl}/${endpoint}`, {
-                method: "POST", // Revisar en casa con la bd, y exportar bd
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, mail, password }),
+export default function AuthScreen() {
+        // Tal vez añadir el contexto?
+        useEffect(() => {
+            requestAnimationFrame(() => {
+                router.replace("/shop");
             });
-            console.log(username, mail, password)
-            const data = await res.json();
-
-            if (res.ok) {
-                Alert.alert("Éxito", `${isLogin ? "Sesión iniciada" : "Registrado"} correctamente`);
-            } else {
-                Alert.alert("Error", data.message || "No te has logeado");
-            }
-        } catch (err) {
-            Alert.alert("Error", "No se pudo conectar al servidor");
-        }
-    };
-    // useEffect(() => {router.navigate("/shop")})
-
+        }, []);
+        // router.navigate("/shop")})
 
     return (
         <View style={styles.container}>
-                <Navbar>
-                </Navbar>
         </View>
     );
 }
